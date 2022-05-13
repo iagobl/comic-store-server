@@ -6,25 +6,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "author", uniqueConstraints = {@UniqueConstraint(name = "unq_name_surname", columnNames = {"name", "surname"})})
-public class Author {
+@Table(name = "collection")
+public class Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @NotBlank
     private String name;
 
-    @Column(name = "surname")
-    private String surname;
+    @NotBlank
+    private String editorial;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<AuthorComic> authorComicList;
+    @OneToMany(mappedBy = "collection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comic> comicList;
+
 }
