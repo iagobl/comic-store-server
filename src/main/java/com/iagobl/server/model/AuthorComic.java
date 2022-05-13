@@ -20,11 +20,11 @@ public class AuthorComic {
     private Long id;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "comic_id", foreignKey = @ForeignKey(name = "fk_author_comic_id"))
+    @JoinColumn(name = "comic_id", foreignKey = @ForeignKey(name = "fk_authorComic_comic_id"))
     private Comic comic;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "fk_author_comic_id"))
+    @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "fk_authorComic_author_id"))
     private Author author;
 
     @NotNull

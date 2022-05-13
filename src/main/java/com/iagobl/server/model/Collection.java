@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "collection")
+@Table(name = "collection", uniqueConstraints = {@UniqueConstraint(name = "unq_collection_name", columnNames = "name")})
 public class Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
