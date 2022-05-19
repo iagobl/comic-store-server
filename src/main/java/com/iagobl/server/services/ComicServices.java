@@ -21,6 +21,10 @@ public class ComicServices {
         return comicRepository.findAll();
     }
 
+    public Optional<Comic> findByName(String name) {
+        return comicRepository.findByName(name);
+    }
+
     public Optional<Comic> findById(Long id){
         return comicRepository.findById(id);
     }
