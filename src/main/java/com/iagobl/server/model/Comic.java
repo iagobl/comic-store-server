@@ -30,7 +30,7 @@ public class Comic {
     private String synopsis;
 
     @NotNull
-    private Integer numero;
+    private Integer number;
 
     @OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AuthorComic> authorComic;
