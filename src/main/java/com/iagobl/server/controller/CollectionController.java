@@ -44,7 +44,7 @@ public class CollectionController {
         return collectionServices.collectionUpdate(id, name, editorial);
     }
 
-
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable(value = "id") Long id){
 
         Optional<Collection> collectionDelete = collectionServices.findById(id);
