@@ -1,5 +1,6 @@
 package com.iagobl.server.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,12 @@ public class AuthorComic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference (value = "comic1")
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "comic_id", foreignKey = @ForeignKey(name = "fk_authorComic_comic_id"))
     private Comic comic;
 
+    @JsonBackReference (value = "author1")
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "fk_authorComic_author_id"))
     private Author author;

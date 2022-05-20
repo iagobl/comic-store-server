@@ -1,5 +1,6 @@
 package com.iagobl.server.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class ComicDetails {
     @NotNull
     private double price;
 
+    @JsonBackReference (value = "comic2")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comic_id", foreignKey = @ForeignKey(name = "fk_comic_details"))
     private Comic comic;

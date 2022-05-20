@@ -1,5 +1,6 @@
 package com.iagobl.server.services;
 
+import com.iagobl.server.model.Collection;
 import com.iagobl.server.model.Comic;
 import org.springframework.http.HttpStatus;
 import com.iagobl.server.repository.ComicRepository;
@@ -16,6 +17,8 @@ public class ComicServices {
 
     @Autowired
     private ComicRepository comicRepository;
+    @Autowired
+    private CollectionServices collectionServices;
 
     public List<Comic> findAll() {
         return comicRepository.findAll();
@@ -34,9 +37,10 @@ public class ComicServices {
     }
 
     @Transactional
-    public Comic comicUpdate(Long id, String name, String synopsis, Integer number){
+    public Comic comicUpdate(Long id, String name, String synopsis, Integer number, Long idCollection){
 
         Comic update = comicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
+        Collection colect = collectionServices.findById(idCollection).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
 
         if(!name.isEmpty() && !name.isBlank()){
             update.setName(name);
@@ -49,6 +53,8 @@ public class ComicServices {
         if(number >= 0 && number != null){
             update.setNumber(number);
         }
+
+        colect.getComicList().add(update);
 
         return update;
     }

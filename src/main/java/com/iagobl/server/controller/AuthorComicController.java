@@ -9,7 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-
+@RestController
+@RequestMapping("/api-spring/authorcomic")
 public class AuthorComicController {
 
     @Autowired

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public class Comic {
     @OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ComicDetails> comicDetails;
 
+    @JsonBackReference (value = "collection1")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "collection_id", foreignKey = @ForeignKey(name = "fk_collection_comic"))
     private Collection collection;
