@@ -27,11 +27,20 @@ public class Comic {
     @NotBlank
     private String name;
 
+    @NotNull
+    private String image;
+
     @NotBlank
     private String synopsis;
 
     @NotNull
     private Integer number;
+
+    @NotNull
+    private Integer page;
+
+    @NotNull
+    private Integer anhoPublication;
 
     @OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AuthorComic> authorComic;
