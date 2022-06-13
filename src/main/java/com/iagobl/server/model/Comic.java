@@ -9,8 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
-import java.sql.Blob;
 import java.util.List;
 
 
@@ -28,8 +28,8 @@ public class Comic {
     @NotBlank
     private String name;
 
-    @Lob
-    private Blob image;
+    @Column(length = Integer.MAX_VALUE)
+    private byte[] image;
 
     @NotBlank
     private String synopsis;

@@ -43,7 +43,7 @@ public class ComicController {
     }
 
     @PutMapping("/image/{id}")
-    public Comic updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "image") MultipartFile imageComic){
+    public Comic updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "imageComic") MultipartFile imageComic){
         return comicServices.comicImageUpdate(id, imageComic);
     }
 

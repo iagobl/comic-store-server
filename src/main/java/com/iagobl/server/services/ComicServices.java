@@ -42,13 +42,12 @@ public class ComicServices {
 
     @Transactional
     public Comic comicImageUpdate(Long id, MultipartFile imageComic){
-        Blob blobImage = null;
         Comic update = comicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
 
         try {
-            blobImage.setBytes(1, imageComic.getBytes());
-            update.setImage(blobImage);
-        } catch (IOException | SQLException e) {
+            update.setImage(imageComic.getBytes());
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
