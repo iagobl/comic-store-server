@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +40,11 @@ public class ComicController {
     @PostMapping
     public Comic save(@RequestBody Comic comic){
         return comicServices.comicSave(comic);
+    }
+
+    @PutMapping("/image/{id}")
+    public Comic updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "image") MultipartFile imageComic){
+        return comicServices.comicImageUpdate(id, imageComic);
     }
 
     @PutMapping("/{id}")

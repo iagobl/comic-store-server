@@ -6,9 +6,13 @@ import org.springframework.http.HttpStatus;
 import com.iagobl.server.repository.ComicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +38,21 @@ public class ComicServices {
 
     public Comic comicSave(Comic comic){
         return comicRepository.save(comic);
+    }
+
+    @Transactional
+    public Comic comicImageUpdate(Long id, MultipartFile imageComic){
+        Blob blobImage = null;
+        Comic update = comicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
+
+        try {
+            blobImage.setBytes(1, imageComic.getBytes());
+            update.setImage(blobImage);
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return update;
     }
 
     @Transactional

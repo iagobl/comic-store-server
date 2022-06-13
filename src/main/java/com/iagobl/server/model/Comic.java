@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Blob;
 import java.util.List;
 
 
@@ -27,8 +28,8 @@ public class Comic {
     @NotBlank
     private String name;
 
-    @NotNull
-    private String image;
+    @Lob
+    private Blob image;
 
     @NotBlank
     private String synopsis;
