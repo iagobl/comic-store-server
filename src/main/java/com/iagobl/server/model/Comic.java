@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -43,11 +44,17 @@ public class Comic {
     @NotNull
     private Integer anhoPublication;
 
-    @OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AuthorComic> authorComic;
+    @NotNull
+    private LocalDate dateAcquistion;
+
+    @NotBlank
+    private String state;
+
+    @NotNull
+    private double price;
 
     @OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ComicDetails> comicDetails;
+    private List<AuthorComic> authorComic;
 
     @JsonBackReference (value = "collection1")
     @ManyToOne(fetch = FetchType.LAZY)

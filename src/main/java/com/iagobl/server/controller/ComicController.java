@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,11 +50,13 @@ public class ComicController {
 
     @PutMapping("/{id}")
     public Comic update(@PathVariable(value = "id") Long id,
-                        @RequestParam(required = true, value = "name") String name,
-                        @RequestParam(required = true, value = "synopsis") String synopsis,
-                        @RequestParam(required = true, value = "number") Integer number,
-                        @RequestParam(required = true, value = "collectionId") Long idCollection){
-        return comicServices.comicUpdate(id, name, synopsis, number, idCollection);
+                        @RequestParam(required = false,value = "name") String name,
+                        @RequestParam(required = false,value = "synopsis") String synopsis,
+                        @RequestParam(required = false,value = "number") Integer number,
+                        @RequestParam(required = false,value = "dateAcquistion") LocalDate date,
+                        @RequestParam(required = false,value = "state") String state,
+                        @RequestParam(required = false,value = "price") Double price){
+        return comicServices.comicUpdate(id, name, synopsis, number, date, state, price);
     }
 
     @DeleteMapping("/{id}")

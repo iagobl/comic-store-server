@@ -11,8 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,24 +54,42 @@ public class ComicServices {
     }
 
     @Transactional
-    public Comic comicUpdate(Long id, String name, String synopsis, Integer number, Long idCollection){
+    public Comic comicUpdate(Long id, String name, String synopsis, Integer number, LocalDate date, String state, Double price){
+
 
         Comic update = comicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
-        Collection colect = collectionServices.findById(idCollection).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
+        Collection collection = collectionServices.findById(update.getCollection().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found")));
 
-        if(!name.isEmpty() && !name.isBlank()){
-            update.setName(name);
+        try{
+            if(!name.isEmpty() && !name.isBlank()){
+                update.setName(name);
+            }
+
+            if(!synopsis.isEmpty() && !synopsis.isBlank()){
+                update.setSynopsis(synopsis);
+            }
+
+            if(number >= 0 && number != null){
+                update.setNumber(number);
+            }
+
+            if(date != null){
+                update.setDateAcquistion(date);
+            }
+
+            if(!state.isEmpty() && !state.isBlank()) {
+                update.setState(state);
+            }
+
+            if(price != null){
+                update.setPrice(price);
+            }
+
+            collection.getComicList().add(update);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if(!synopsis.isEmpty() && !synopsis.isBlank()){
-            update.setSynopsis(synopsis);
-        }
-
-        if(number >= 0 && number != null){
-            update.setNumber(number);
-        }
-
-        colect.getComicList().add(update);
 
         return update;
     }
