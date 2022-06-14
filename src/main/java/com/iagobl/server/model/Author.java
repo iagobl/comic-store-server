@@ -22,6 +22,9 @@ public class Author {
     @Column(name = "name")
     private String name;
 
+    @Column(length = Integer.MAX_VALUE)
+    private byte[] image;
+
     @Column(name = "surname")
     private String surname;
 

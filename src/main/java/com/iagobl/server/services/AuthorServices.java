@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import com.iagobl.server.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,19 @@ public class AuthorServices {
 
     public Author authorSave(Author author){
         return AuthorRepository.save(author);
+    }
+
+    @Transactional
+    public Author authorImageUpdate(Long id, MultipartFile imageAuthor) {
+        Author update = AuthorRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Author not found")));
+
+        try {
+            update.setImage(imageAuthor.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return update;
     }
 
     @Transactional

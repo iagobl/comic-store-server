@@ -5,9 +5,11 @@ import com.iagobl.server.services.AuthorServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +18,9 @@ public class AuthorController {
 
     @Autowired
     private AuthorServices AuthorServices;
+
+    @GetMapping
+    public List<Author> findAll() { return AuthorServices.findAll(); }
 
     @GetMapping("/findByName/{name}")
     public Author findName(@PathVariable(value="name") String name) {
@@ -31,6 +36,11 @@ public class AuthorController {
     @PostMapping
     public Author save(@RequestBody Author author){
         return AuthorServices.authorSave(author);
+    }
+
+    @PutMapping("/image/{id}")
+    public Author updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "imageAuthor") MultipartFile imageAuthor) {
+        return AuthorServices.authorImageUpdate(id, imageAuthor);
     }
 
     @PutMapping("/{id}")
