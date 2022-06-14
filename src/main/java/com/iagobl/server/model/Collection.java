@@ -23,6 +23,9 @@ public class Collection {
     @NotBlank
     private String name;
 
+    @Column(length = Integer.MAX_VALUE)
+    private byte[] image;
+
     @NotBlank
     private String editorial;
 

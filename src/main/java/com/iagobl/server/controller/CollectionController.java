@@ -5,6 +5,7 @@ import com.iagobl.server.services.CollectionServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -35,6 +36,11 @@ public class CollectionController {
     @PostMapping
     public Collection save(@RequestBody Collection collection){
         return collectionServices.collectionSave(collection);
+    }
+
+    @PutMapping("/image/{id}")
+    public Collection updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "imageCollection")MultipartFile imageCollection){
+        return collectionServices.collectionImageUpdate(id, imageCollection);
     }
 
     @PutMapping("/{id}")

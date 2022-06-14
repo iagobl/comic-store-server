@@ -5,9 +5,11 @@ import com.iagobl.server.repository.CollectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,19 @@ public class CollectionServices {
 
     public Collection collectionSave(Collection collection){
         return collectionRepository.save(collection);
+    }
+
+    @Transactional
+    public Collection collectionImageUpdate(Long id, MultipartFile imageCollection) {
+        Collection update = collectionRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found")));
+
+        try {
+            update.setImage(imageCollection.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return update;
     }
 
     @Transactional
