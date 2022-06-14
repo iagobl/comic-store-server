@@ -54,7 +54,7 @@ public class ComicServices {
     }
 
     @Transactional
-    public Comic comicUpdate(Long id, String name, String synopsis, Integer number, LocalDate date, String state, Double price){
+    public Comic comicUpdate(Long id, String name, String synopsis, Integer number, Integer page, String tapa, Integer anhoPublication, LocalDate date, String state, Double price){
 
 
         Comic update = comicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
@@ -69,8 +69,20 @@ public class ComicServices {
                 update.setSynopsis(synopsis);
             }
 
-            if(number >= 0 && number != null){
+            if(number != null){
                 update.setNumber(number);
+            }
+
+            if(page != null) {
+                update.setPage(page);
+            }
+
+            if(!tapa.isEmpty() && !tapa.isBlank()){
+                update.setTapa(tapa);
+            }
+
+            if(anhoPublication != null){
+                update.setAnhoPublication(anhoPublication);
             }
 
             if(date != null){

@@ -42,6 +42,9 @@ public class Comic {
     private Integer page;
 
     @NotNull
+    private String tapa;
+
+    @NotNull
     private Integer anhoPublication;
 
     @NotNull

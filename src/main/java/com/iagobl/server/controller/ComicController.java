@@ -4,14 +4,10 @@ import com.iagobl.server.model.Comic;
 import com.iagobl.server.services.ComicServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -53,10 +49,13 @@ public class ComicController {
                         @RequestParam(required = false,value = "name") String name,
                         @RequestParam(required = false,value = "synopsis") String synopsis,
                         @RequestParam(required = false,value = "number") Integer number,
-                        @RequestParam(required = false,value = "dateAcquistion") LocalDate date,
+                        @RequestParam(required = false,value = "page") Integer page,
+                        @RequestParam(required = false,value = "tapa") String tapa,
+                        @RequestParam(required = false,value = "anhoPublication") Integer anhoPublication,
+                        @RequestParam(required = false,value = "dateAcquistion") LocalDate dateAcquistion,
                         @RequestParam(required = false,value = "state") String state,
                         @RequestParam(required = false,value = "price") Double price){
-        return comicServices.comicUpdate(id, name, synopsis, number, date, state, price);
+        return comicServices.comicUpdate(id, name, synopsis, number, page, tapa, anhoPublication, dateAcquistion, state, price);
     }
 
     @DeleteMapping("/{id}")
