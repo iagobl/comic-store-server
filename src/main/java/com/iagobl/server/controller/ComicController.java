@@ -52,10 +52,11 @@ public class ComicController {
                         @RequestParam(required = false,value = "page") Integer page,
                         @RequestParam(required = false,value = "tapa") String tapa,
                         @RequestParam(required = false,value = "anhoPublication") Integer anhoPublication,
-                        @RequestParam(required = false,value = "dateAcquistion") LocalDate dateAcquistion,
+                        @RequestParam(required = false,value = "dateAcquistion") String dateAcquistion,
                         @RequestParam(required = false,value = "state") String state,
                         @RequestParam(required = false,value = "price") Double price){
-        return comicServices.comicUpdate(id, name, synopsis, number, page, tapa, anhoPublication, dateAcquistion, state, price);
+        LocalDate local = LocalDate.parse(dateAcquistion);
+        return comicServices.comicUpdate(id, name, synopsis, number, page, tapa, anhoPublication, local, state, price);
     }
 
     @DeleteMapping("/{id}")

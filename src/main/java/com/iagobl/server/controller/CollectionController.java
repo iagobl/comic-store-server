@@ -23,6 +23,9 @@ public class CollectionController {
         return collectionServices.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Collection> findById(@PathVariable(value = "id") Long id) { return collectionServices.findById(id); }
+
     @GetMapping("/findByName/{name}")
     public Collection findName(@PathVariable(value = "name") String name){
         Optional<Collection> collection = collectionServices.findByName(name);
