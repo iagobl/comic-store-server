@@ -32,6 +32,11 @@ public class CollectionServices {
     }
 
     public Collection collectionSave(Collection collection){
+        Optional<Collection> search = findByName(collection.getName());
+        if(search.isPresent()){
+            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Collection found"));
+        }
+
         return collectionRepository.save(collection);
     }
 
