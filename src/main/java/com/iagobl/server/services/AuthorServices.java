@@ -32,6 +32,11 @@ public class AuthorServices {
     }
 
     public Author authorSave(Author author){
+        Optional<Author> search = findByName(author.getName());
+        if(search.isPresent()){
+            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Author found"));
+        }
+
         return AuthorRepository.save(author);
     }
 

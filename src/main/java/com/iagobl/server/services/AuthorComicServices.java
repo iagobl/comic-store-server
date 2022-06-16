@@ -25,9 +25,7 @@ public class AuthorComicServices {
         return authorComicRepository.findById(id);
     }
 
-    public AuthorComic save(AuthorComic authorComic){
-        return authorComicRepository.save(authorComic);
-    }
+    public AuthorComic save(AuthorComic authorComic){ return authorComicRepository.save(authorComic); }
 
     @Transactional
     public AuthorComic update(Long id, String job){
