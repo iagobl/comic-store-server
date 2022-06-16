@@ -36,6 +36,11 @@ public class ComicServices {
     }
 
     public Comic comicSave(Comic comic){
+        Optional<Comic> search = findByName(comic.getName());
+        if(search.isPresent()){
+            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Comic found"));
+        }
+
         return comicRepository.save(comic);
     }
 
