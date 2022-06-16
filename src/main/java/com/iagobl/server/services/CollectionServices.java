@@ -54,16 +54,20 @@ public class CollectionServices {
     }
 
     @Transactional
-    public Collection collectionUpdate(Long id, String name, String editorial){
+    public Collection collectionUpdate(Collection collection){
 
-        Collection update = collectionRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found")));
-
-        if(!name.isEmpty() && !name.isBlank()){
-            update.setName(name);
+        Collection update = collectionRepository.findById(collection.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found")));
+        Optional<Collection> collectionSearch = collectionRepository.findByName(collection.getName());
+        if(collectionSearch.isPresent()){
+            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Collection name repeat"));
         }
 
-        if(!editorial.isEmpty() && !editorial.isBlank()){
-            update.setEditorial(editorial);
+        if(!collection.getName().isEmpty() && !collection.getName().isBlank()){
+            update.setName(collection.getName());
+        }
+
+        if(!collection.getEditorial().isEmpty() && !collection.getEditorial().isBlank()){
+            update.setEditorial(collection.getEditorial());
         }
 
         return update;
