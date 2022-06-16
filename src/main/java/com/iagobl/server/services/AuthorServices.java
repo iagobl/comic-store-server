@@ -54,16 +54,20 @@ public class AuthorServices {
     }
 
     @Transactional
-    public Author authorUpdate(Long id, String name, String surname){
+    public Author authorUpdate(Author author){
 
-        Author update = AuthorRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Author not found")));
-
-        if (!name.isEmpty() && !name.isBlank()){
-            update.setName(name);
+        Author update = AuthorRepository.findById(author.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Author not found")));
+        Optional<Author> authorSearch = AuthorRepository.findByName(author.getName());
+        if(authorSearch.isPresent()){
+            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Author name repeat"));
         }
 
-        if (!surname.isEmpty() && !surname.isBlank()){
-            update.setSurname(surname);
+        if (!author.getName().isEmpty() && !author.getName().isBlank()){
+            update.setName(author.getName());
+        }
+
+        if (!author.getSurname().isEmpty() && !author.getSurname().isBlank()){
+            update.setSurname(author.getSurname());
         }
 
         return update;

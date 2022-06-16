@@ -43,9 +43,9 @@ public class AuthorController {
         return AuthorServices.authorImageUpdate(id, imageAuthor);
     }
 
-    @PutMapping("/{id}")
-    public Author update(@PathVariable(value = "id") Long id, @RequestParam(required = true, value = "name") String name, @RequestParam(required = true, value = "surname") String surname){
-        return AuthorServices.authorUpdate(id, name, surname);
+    @PutMapping
+    public Author update(@RequestBody Author author){
+        return AuthorServices.authorUpdate(author);
     }
 
     @DeleteMapping("/{id}")

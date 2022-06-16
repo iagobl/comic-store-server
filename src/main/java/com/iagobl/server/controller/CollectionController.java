@@ -50,12 +50,6 @@ public class CollectionController {
     public Collection update(@RequestBody Collection collection) {
         return collectionServices.collectionUpdate(collection);
     }
-    /*@PutMapping("/{id}")
-    public Collection update(@PathVariable(value = "id") Long id,
-                             @RequestParam(required = true, value = "name") String name,
-                             @RequestParam(required = true, value = "editorial") String editorial){
-        return collectionServices.collectionUpdate(id, name, editorial);
-    }*/
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable(value = "id") Long id){
