@@ -44,19 +44,9 @@ public class ComicController {
         return comicServices.comicImageUpdate(id, imageComic);
     }
 
-    @PutMapping("/{id}")
-    public Comic update(@PathVariable(value = "id") Long id,
-                        @RequestParam(required = false,value = "name") String name,
-                        @RequestParam(required = false,value = "synopsis") String synopsis,
-                        @RequestParam(required = false,value = "number") Integer number,
-                        @RequestParam(required = false,value = "page") Integer page,
-                        @RequestParam(required = false,value = "tapa") String tapa,
-                        @RequestParam(required = false,value = "anhoPublication") Integer anhoPublication,
-                        @RequestParam(required = false,value = "dateAcquistion") String dateAcquistion,
-                        @RequestParam(required = false,value = "state") String state,
-                        @RequestParam(required = false,value = "price") Double price){
-        LocalDate local = LocalDate.parse(dateAcquistion);
-        return comicServices.comicUpdate(id, name, synopsis, number, page, tapa, anhoPublication, local, state, price);
+    @PutMapping
+    public Comic update(@RequestBody Comic comic){
+        return comicServices.comicUpdate(comic);
     }
 
     @DeleteMapping("/{id}")

@@ -59,47 +59,49 @@ public class ComicServices {
     }
 
     @Transactional
-    public Comic comicUpdate(Long id, String name, String synopsis, Integer number, Integer page, String tapa, Integer anhoPublication, LocalDate dateAcquistion, String state, Double price){
-
-
-        Comic update = comicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
+    public Comic comicUpdate(Comic comic){
+        Comic update = comicRepository.findById(comic.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
         Collection collection = collectionServices.findById(update.getCollection().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found")));
+        Optional<Comic> comicSearch = comicRepository.findByName(comic.getName());
+        if(comicSearch.isPresent()){
+            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Comic repeat name"));
+        }
 
         try{
-            if(!name.isEmpty() && !name.isBlank()){
-                update.setName(name);
+            if(!comic.getName().isEmpty() && !comic.getName().isBlank()){
+                update.setName(comic.getName());
             }
 
-            if(!synopsis.isEmpty() && !synopsis.isBlank()){
-                update.setSynopsis(synopsis);
+            if(!comic.getSynopsis().isEmpty() && !comic.getSynopsis().isBlank()){
+                update.setSynopsis(comic.getSynopsis());
             }
 
-            if(number != null){
-                update.setNumber(number);
+            if(comic.getNumber() >= 0){
+                update.setNumber(comic.getNumber());
             }
 
-            if(page != null) {
-                update.setPage(page);
+            if(comic.getPage() >= 0) {
+                update.setPage(comic.getPage());
             }
 
-            if(!tapa.isEmpty() && !tapa.isBlank()){
-                update.setTapa(tapa);
+            if(!comic.getTapa().isEmpty() && !comic.getTapa().isBlank()){
+                update.setTapa(comic.getTapa());
             }
 
-            if(anhoPublication != null){
-                update.setAnhoPublication(anhoPublication);
+            if(comic.getAnhoPublication() >= 0){
+                update.setAnhoPublication(comic.getAnhoPublication());
             }
 
-            //if(dateAcquistion != null){
-                update.setDateAcquistion(dateAcquistion);
-            //}
-
-            if(!state.isEmpty() && !state.isBlank()) {
-                update.setState(state);
+            if(comic.getDateAcquistion() != null){
+                update.setDateAcquistion(comic.getDateAcquistion());
             }
 
-            if(price != null){
-                update.setPrice(price);
+            if(!comic.getState().isEmpty() && !comic.getState().isBlank()) {
+                update.setState(comic.getState());
+            }
+
+            if(comic.getPrice() >= 0.0){
+                update.setPrice(comic.getPrice());
             }
 
             collection.getComicList().add(update);
