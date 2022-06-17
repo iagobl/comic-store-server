@@ -31,6 +31,6 @@ public class AuthorComic {
     private Author author;
 
     @NotNull
-    private String job;
+    private int timeDedicated;
 
 }

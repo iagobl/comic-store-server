@@ -28,11 +28,11 @@ public class AuthorComicServices {
     public AuthorComic save(AuthorComic authorComic){ return authorComicRepository.save(authorComic); }
 
     @Transactional
-    public AuthorComic update(Long id, String job){
+    public AuthorComic update(Long id, int timeDedicated){
         AuthorComic update = authorComicRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Relation not found")));
 
-        if(!job.isEmpty() && !job.isBlank()){
-            update.setJob(job);
+        if(timeDedicated > 0){
+            update.setTimeDedicated(timeDedicated);
         }
 
         return update;

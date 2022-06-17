@@ -30,8 +30,8 @@ public class AuthorComicController {
     }
 
     @PutMapping("/{id}")
-    public AuthorComic update(@PathVariable(value = "id") Long id, @RequestParam(required = true, value = "job") String job){
-        return authorComicServices.update(id, job);
+    public AuthorComic update(@PathVariable(value = "id") Long id, @RequestParam(required = true, value = "timeDedicated") int timeDedicated){
+        return authorComicServices.update(id, timeDedicated);
     }
 
     @DeleteMapping("/{id}")
