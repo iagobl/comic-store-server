@@ -26,7 +26,7 @@ public class AuthorComic {
     private Comic comic;
 
     @JsonBackReference (value = "author1")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "fk_authorComic_author_id"))
     private Author author;
 

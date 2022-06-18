@@ -39,7 +39,17 @@ public class CollectionController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Collection> findById(@PathVariable(value = "id") Long id) { return collectionServices.findById(id); }
+    public HashMap<String, Object> findById(@PathVariable(value = "id") Long id) {
+        Optional<Collection> collection = collectionServices.findById(id);
+        HashMap<String, Object> collectionReturnData = new HashMap<>();
+
+        collectionReturnData.put("id", collection.get().getId());
+        collectionReturnData.put("name", collection.get().getName());
+        collectionReturnData.put("image", collection.get().getImage());
+        collectionReturnData.put("editorial", collection.get().getEditorial());
+
+        return collectionReturnData;
+    }
 
     @GetMapping("/findByName/{name}")
     public Collection findName(@PathVariable(value = "name") String name){
@@ -71,7 +81,7 @@ public class CollectionController {
     public void delete(@PathVariable(value = "id") Long id){
 
         Optional<Collection> collectionDelete = collectionServices.findById(id);
-        if(!collectionDelete.isPresent()){
+        if(collectionDelete == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found"));
         }
 

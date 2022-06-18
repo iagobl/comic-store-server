@@ -28,7 +28,7 @@ public class Author {
     @Column(name = "surname")
     private String surname;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private AuthorComic authorComic;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AuthorComic> authorComic;
 
 }
