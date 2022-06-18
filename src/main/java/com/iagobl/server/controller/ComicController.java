@@ -1,6 +1,8 @@
 package com.iagobl.server.controller;
 
+import com.iagobl.server.model.Author;
 import com.iagobl.server.model.Comic;
+import com.iagobl.server.services.AuthorServices;
 import com.iagobl.server.services.ComicServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ public class ComicController {
 
     @Autowired
     public ComicServices comicServices;
+    @Autowired
+    public AuthorServices authorServices;
 
     @GetMapping
     public List<Comic> findAll() {
@@ -34,13 +38,16 @@ public class ComicController {
         return comic.get();
     }
 
-    @PostMapping
-    public Comic save(@RequestBody Comic comic){
+    @PostMapping("/{id}")
+    public Comic save(@RequestBody Comic comic, @PathVariable Long id){
+        comic.getAuthorComic().setComic(comic);
+        comic.getAuthorComic().setAuthor(authorServices.findById(id).get());
         return comicServices.comicSave(comic);
     }
 
     @PutMapping("/image/{id}")
     public Comic updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "imageComic") MultipartFile imageComic){
+        System.out.println("hola");
         return comicServices.comicImageUpdate(id, imageComic);
     }
 

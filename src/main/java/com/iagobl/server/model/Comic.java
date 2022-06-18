@@ -63,8 +63,8 @@ public class Comic {
     @NotNull
     private double price;
 
-    @OneToMany(mappedBy = "comic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AuthorComic> authorComic;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private AuthorComic authorComic;
 
     @JsonBackReference (value = "collection1")
     @ManyToOne(fetch = FetchType.LAZY)

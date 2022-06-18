@@ -25,6 +25,8 @@ public class AuthorComicServices {
         return authorComicRepository.findById(id);
     }
 
+    public Optional<AuthorComic> findByIdComic(Long id) { return authorComicRepository.findByIdComic(id); }
+
     public AuthorComic save(AuthorComic authorComic){ return authorComicRepository.save(authorComic); }
 
     @Transactional

@@ -24,6 +24,9 @@ public class AuthorComicController {
     @GetMapping("/{id}")
     public Optional<AuthorComic> findById(@PathVariable(value = "id") Long id){ return authorComicServices.findById(id); }
 
+    @GetMapping("/findByIdComic/{id}")
+    public Optional<AuthorComic> findByIdComic(@PathVariable(value = "id") Long id) { return authorComicServices.findByIdComic(id); }
+
     @PostMapping
     public AuthorComic save(@RequestBody AuthorComic authorComic){
         return authorComicServices.save(authorComic);
