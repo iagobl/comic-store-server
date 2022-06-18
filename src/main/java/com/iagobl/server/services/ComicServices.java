@@ -92,8 +92,8 @@ public class ComicServices {
                 update.setAnhoPublication(comic.getAnhoPublication());
             }
 
-            if(comic.getDateAcquistion() != null){
-                update.setDateAcquistion(comic.getDateAcquistion());
+            if(comic.getDataAcquisition() != null){
+                update.setDataAcquisition(comic.getDataAcquisition());
             }
 
             if(!comic.getState().isEmpty() && !comic.getState().isBlank()) {

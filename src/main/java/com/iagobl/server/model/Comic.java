@@ -56,7 +56,7 @@ public class Comic {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate dateAcquistion;
+    private LocalDate dataAcquisition;
 
     @NotBlank
     private String state;

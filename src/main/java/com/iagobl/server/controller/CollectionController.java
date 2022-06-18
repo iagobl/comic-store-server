@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +21,21 @@ public class CollectionController {
     public CollectionServices collectionServices;
 
     @GetMapping
-    public List<Collection> findAll(){
-        return collectionServices.findAll();
+    public List<HashMap<String, Object>> findAll(){
+        List<Collection> collections = collectionServices.findAll();
+        List<HashMap<String, Object>> collectionReturnData = new ArrayList<>();
+
+        collections.forEach( collection -> {
+            HashMap<String, Object> collectionData = new HashMap<>();
+            collectionData.put("id", collection.getId());
+            collectionData.put("name", collection.getName());
+            collectionData.put("image", collection.getImage());
+            collectionData.put("editorial", collection.getEditorial());
+
+            collectionReturnData.add(collectionData);
+        });
+
+        return collectionReturnData;
     }
 
     @GetMapping("/{id}")
