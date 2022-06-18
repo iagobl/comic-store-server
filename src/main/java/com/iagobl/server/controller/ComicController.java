@@ -38,6 +38,12 @@ public class ComicController {
         return comic.get();
     }
 
+    @GetMapping("/{id}")
+    public Comic findById(@PathVariable(value = "id") Long id){
+        Optional<Comic> comic = comicServices.findById(id);
+        return comic.get();
+    }
+
     @PostMapping("/{id}")
     public Comic save(@RequestBody Comic comic, @PathVariable Long id){
         comic.getAuthorComic().setComic(comic);

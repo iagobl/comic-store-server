@@ -43,6 +43,7 @@ public class CollectionController {
 
     @PutMapping("/image/{id}")
     public Collection updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "imageCollection")MultipartFile imageCollection){
+        System.out.println("hola");
         return collectionServices.collectionImageUpdate(id, imageCollection);
     }
 

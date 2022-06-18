@@ -46,7 +46,7 @@ public class ComicServices {
 
     @Transactional
     public Comic comicImageUpdate(Long id, MultipartFile imageComic){
-        Comic update = comicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
+        Comic update = comicRepository.findById(id).orElse(null);
 
         try {
             update.setImage(imageComic.getBytes());
