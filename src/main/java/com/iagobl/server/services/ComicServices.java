@@ -62,9 +62,12 @@ public class ComicServices {
     public Comic comicUpdate(Comic comic){
         Comic update = comicRepository.findById(comic.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Comic not found")));
         Collection collection = collectionServices.findById(update.getCollection().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found")));
-        Optional<Comic> comicSearch = comicRepository.findByName(comic.getName());
-        if(comicSearch.isPresent()){
-            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Comic repeat name"));
+
+        if(!comic.getName().equals(update.getName())){
+            Optional<Comic> comicSearch = comicRepository.findByName(comic.getName());
+            if(comicSearch.isPresent()){
+                throw new ResponseStatusException(HttpStatus.FOUND, String.format("Comic repeat name"));
+            }
         }
 
         try{

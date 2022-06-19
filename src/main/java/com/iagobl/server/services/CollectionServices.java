@@ -57,9 +57,11 @@ public class CollectionServices {
     public Collection collectionUpdate(Collection collection){
 
         Collection update = collectionRepository.findById(collection.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Collection not found")));
-        Optional<Collection> collectionSearch = collectionRepository.findByName(collection.getName());
-        if(collectionSearch.isPresent()){
-            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Collection name repeat"));
+        if(!collection.getName().equals(update.getName())){
+            Optional<Collection> collectionSearch = collectionRepository.findByName(collection.getName());
+            if(collectionSearch.isPresent()){
+                throw new ResponseStatusException(HttpStatus.FOUND, String.format("Collection name repeat"));
+            }
         }
 
         if(!collection.getName().isEmpty() && !collection.getName().isBlank()){

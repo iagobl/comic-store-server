@@ -57,9 +57,11 @@ public class AuthorServices {
     public Author authorUpdate(Author author){
 
         Author update = AuthorRepository.findById(author.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Author not found")));
-        Optional<Author> authorSearch = AuthorRepository.findByName(author.getName());
-        if(authorSearch.isPresent()){
-            throw new ResponseStatusException(HttpStatus.FOUND, String.format("Author name repeat"));
+        if(!author.getName().equals(update.getName())){
+            Optional<Author> authorSearch = AuthorRepository.findByName(author.getName());
+            if(authorSearch.isPresent()){
+                throw new ResponseStatusException(HttpStatus.FOUND, String.format("Author name repeat"));
+            }
         }
 
         if (!author.getName().isEmpty() && !author.getName().isBlank()){
