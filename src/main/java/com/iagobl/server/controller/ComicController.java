@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api-spring/comic")
@@ -26,6 +27,30 @@ public class ComicController {
     @GetMapping
     public List<Comic> findAll() {
         return comicServices.findAll();
+    }
+
+    @GetMapping("/findComicReport/{name}")
+    public HashMap<String, Object> findComicReport(@PathVariable(value = "name") String name){
+        String newName = name.replaceAll(Pattern.quote("+"), " ");
+        Optional<Comic> comic = comicServices.findByName(newName);
+        HashMap<String, Object> comicReturnData = new HashMap<>();
+
+        comicReturnData.put("id", comic.get().getId());
+        comicReturnData.put("name", comic.get().getName());
+        comicReturnData.put("image", comic.get().getImage());
+        comicReturnData.put("synopsis", comic.get().getSynopsis());
+        comicReturnData.put("number", comic.get().getNumber());
+        comicReturnData.put("page", comic.get().getPage());
+        comicReturnData.put("tapa", comic.get().getTapa());
+        comicReturnData.put("anhoPublication", comic.get().getAnhoPublication());
+        comicReturnData.put("dataAcquisition", comic.get().getDataAcquisition());
+        comicReturnData.put("state", comic.get().getState());
+        comicReturnData.put("price", comic.get().getPrice());
+        comicReturnData.put("timeDedicated", comic.get().getAuthorComic().getTimeDedicated());
+        comicReturnData.put("collection_id", comic.get().getCollection().getId());
+        comicReturnData.put("authorName", comic.get().getAuthorComic().getAuthor().getName());
+
+        return comicReturnData;
     }
 
     @GetMapping("/findByName/{name}")
@@ -53,7 +78,6 @@ public class ComicController {
 
     @PutMapping("/image/{id}")
     public Comic updatePhoto(@PathVariable(value = "id") Long id, @RequestParam(value = "imageComic") MultipartFile imageComic){
-        System.out.println("hola");
         return comicServices.comicImageUpdate(id, imageComic);
     }
 

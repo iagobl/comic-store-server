@@ -20,6 +20,11 @@ public class CollectionController {
     @Autowired
     public CollectionServices collectionServices;
 
+    @GetMapping("/findAll")
+    public List<Collection> findAllReport(){
+        return collectionServices.findAll();
+    }
+
     @GetMapping
     public List<HashMap<String, Object>> findAll(){
         List<Collection> collections = collectionServices.findAll();
@@ -31,7 +36,6 @@ public class CollectionController {
             collectionData.put("name", collection.getName());
             collectionData.put("image", collection.getImage());
             collectionData.put("editorial", collection.getEditorial());
-
             collectionReturnData.add(collectionData);
         });
 
