@@ -39,6 +39,7 @@ public class Comic {
     private byte[] image;
 
     @NotBlank
+    @Column(length = 500)
     private String synopsis;
 
     @NotNull
